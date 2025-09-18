@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DragSnapParent2D : MonoBehaviour
+public class DragObject : MonoBehaviour
 {
     private Vector3 offset;
     private bool isDragging = false;
@@ -10,22 +10,39 @@ public class DragSnapParent2D : MonoBehaviour
     public float snapDistance = 1f;
     private Transform[] snapTargets;
 
+    [Header("Sprites")]
+    public Sprite sprite1;
+    public Sprite sprite2;
+    private SpriteRenderer spriteRenderer;
+    private bool hasSwitched = false;
+
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null && sprite1 != null)
+            spriteRenderer.sprite = sprite1;
+
         if (snapParent != null)
         {
-            // get objects under snap parent ground
             int childCount = snapParent.childCount;
             snapTargets = new Transform[childCount];
             for (int i = 0; i < childCount; i++)
-            {
                 snapTargets[i] = snapParent.GetChild(i);
-            }
         }
     }
 
     void OnMouseDown()
     {
+        //if holding pen, cannot drag
+        if (PenObject.isHoldingPen) return;
+
+        //click to switch sprite
+        if (!hasSwitched && spriteRenderer != null && sprite2 != null)
+        {
+            spriteRenderer.sprite = sprite2;
+            hasSwitched = true;
+        }
+
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
         offset = transform.position - mousePos;
@@ -34,7 +51,7 @@ public class DragSnapParent2D : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if (isDragging)
+        if (isDragging && !PenObject.isHoldingPen)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0;
@@ -46,7 +63,7 @@ public class DragSnapParent2D : MonoBehaviour
     {
         isDragging = false;
 
-        if (snapTargets != null && snapTargets.Length > 0)
+        if (!PenObject.isHoldingPen && snapTargets != null && snapTargets.Length > 0)
         {
             Transform nearestTarget = null;
             float nearestDistance = Mathf.Infinity;
@@ -62,9 +79,7 @@ public class DragSnapParent2D : MonoBehaviour
             }
 
             if (nearestTarget != null && nearestDistance <= snapDistance)
-            {
                 transform.position = nearestTarget.position;
-            }
         }
     }
 }

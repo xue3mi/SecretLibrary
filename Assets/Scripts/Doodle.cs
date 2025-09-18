@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class DoodleOnObject2D : MonoBehaviour
+public class Doodle : MonoBehaviour
 {
     public GameObject linePrefab;
     public Collider2D drawArea;
@@ -10,12 +10,15 @@ public class DoodleOnObject2D : MonoBehaviour
 
     void Update()
     {
+        //if not holding pen, cannot draw
+        if (!PenObject.isHoldingPen) return;
+
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.z = 0;
+
+        // record pointPos
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0;
-
-            // mouse on area
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
             if (hit.collider != null && hit.collider == drawArea)
             {
@@ -24,12 +27,9 @@ public class DoodleOnObject2D : MonoBehaviour
             }
         }
 
+        
         if (Input.GetMouseButton(0) && currentLine != null)
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0;
-
-            // can only draw in area
             if (drawArea.OverlapPoint(mousePos))
             {
                 if (points.Count == 0 || Vector3.Distance(points[points.Count - 1], mousePos) > 0.05f)
@@ -39,6 +39,7 @@ public class DoodleOnObject2D : MonoBehaviour
             }
         }
 
+        // connect line
         if (Input.GetMouseButtonUp(0))
         {
             EndLine();
@@ -48,10 +49,7 @@ public class DoodleOnObject2D : MonoBehaviour
     void StartLine()
     {
         GameObject newLine = Instantiate(linePrefab);
-
-        //let line become child of drawArea
         newLine.transform.SetParent(drawArea.transform);
-
         currentLine = newLine.GetComponent<LineRenderer>();
         points.Clear();
     }
