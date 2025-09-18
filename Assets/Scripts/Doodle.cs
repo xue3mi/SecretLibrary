@@ -11,7 +11,7 @@ public class Doodle : MonoBehaviour
     void Update()
     {
         //if not holding pen, cannot draw
-        if (!PenObject.isHoldingPen) return;
+        if (PenObject.isHoldingPen==0) return;
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;

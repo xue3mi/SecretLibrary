@@ -34,7 +34,7 @@ public class DragObject : MonoBehaviour
     void OnMouseDown()
     {
         //if holding pen, cannot drag
-        if (PenObject.isHoldingPen) return;
+        if (PenObject.isHoldingPen>0) return;
 
         //click to switch sprite
         if (!hasSwitched && spriteRenderer != null && sprite2 != null)
@@ -51,7 +51,7 @@ public class DragObject : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if (isDragging && !PenObject.isHoldingPen)
+        if (isDragging && 0==PenObject.isHoldingPen)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0;
@@ -63,7 +63,7 @@ public class DragObject : MonoBehaviour
     {
         isDragging = false;
 
-        if (!PenObject.isHoldingPen && snapTargets != null && snapTargets.Length > 0)
+        if (0==PenObject.isHoldingPen && snapTargets != null && snapTargets.Length > 0)
         {
             Transform nearestTarget = null;
             float nearestDistance = Mathf.Infinity;

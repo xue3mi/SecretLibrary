@@ -998,6 +998,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
+  cd: {fileID: 0}
 --- !u!61 &1147504659
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1821,7 +1822,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3292906150053718792, guid: 465fad0c58fedc34f8be8e5be6bf9bc3, type: 3}
       propertyPath: m_Offset.x
-      value: 0.74
+      value: 0.72
       objectReference: {fileID: 0}
     - target: {fileID: 6468452298128825960, guid: 465fad0c58fedc34f8be8e5be6bf9bc3, type: 3}
       propertyPath: linePrefab
@@ -1830,6 +1831,10 @@ PrefabInstance:
     - target: {fileID: 7819443191222660002, guid: 465fad0c58fedc34f8be8e5be6bf9bc3, type: 3}
       propertyPath: m_Name
       value: Fullpage
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819443191222660002, guid: 465fad0c58fedc34f8be8e5be6bf9bc3, type: 3}
+      propertyPath: m_TagString
+      value: Page
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
