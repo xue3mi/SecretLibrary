@@ -4,6 +4,7 @@ public class DragObject : MonoBehaviour
 {
     private Vector3 offset;
     private bool isDragging = false;
+    private bool hasSpawnedNext = false;
 
     [Header("SnapParent")]
     public Transform snapParent;
@@ -15,6 +16,8 @@ public class DragObject : MonoBehaviour
     public Sprite sprite2;
     private SpriteRenderer spriteRenderer;
     private bool hasSwitched = false;
+
+    [HideInInspector] public PageSpawner spawner;
 
     void Start()
     {
@@ -33,10 +36,9 @@ public class DragObject : MonoBehaviour
 
     void OnMouseDown()
     {
-        //if holding pen, cannot drag
-        if (PenObject.isHoldingPen>0) return;
+        if (PenObject.isHoldingPen > 0) return;
 
-        //click to switch sprite
+        // click to switch sprite
         if (!hasSwitched && spriteRenderer != null && sprite2 != null)
         {
             spriteRenderer.sprite = sprite2;
@@ -47,11 +49,18 @@ public class DragObject : MonoBehaviour
         mousePos.z = 0;
         offset = transform.position - mousePos;
         isDragging = true;
+
+        //drag then to spawn next
+        if (!hasSpawnedNext && spawner != null)
+        {
+            spawner.PageRemoved();
+            hasSpawnedNext = true;
+        }
     }
 
     void OnMouseDrag()
     {
-        if (isDragging && 0==PenObject.isHoldingPen)
+        if (isDragging && PenObject.isHoldingPen == 0)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0;
@@ -63,7 +72,7 @@ public class DragObject : MonoBehaviour
     {
         isDragging = false;
 
-        if (0==PenObject.isHoldingPen && snapTargets != null && snapTargets.Length > 0)
+        if (PenObject.isHoldingPen == 0 && snapTargets != null && snapTargets.Length > 0)
         {
             Transform nearestTarget = null;
             float nearestDistance = Mathf.Infinity;
