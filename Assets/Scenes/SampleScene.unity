@@ -196,7 +196,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 1365539031471768751, guid: 7f302d4c9b5c13446a067ab27dc0fb8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -493,6 +493,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &530300065 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8357878071062651626, guid: 5cede7c43ee137645b198e42edbd9a1c, type: 3}
+  m_PrefabInstance: {fileID: 1909071832287019451}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +644,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 1365539031471768751, guid: 7f302d4c9b5c13446a067ab27dc0fb8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -789,7 +794,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 5
   m_Sprite: {fileID: 1938329166405313482, guid: 865060b844b470c4aa7868a460f027df, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -810,7 +815,7 @@ Transform:
   m_GameObject: {fileID: 1147504655}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: 0, z: 0}
+  m_LocalPosition: {x: 6, y: 1, z: 0}
   m_LocalScale: {x: 1.6, y: 1.6, z: 1.6}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -953,7 +958,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 1365539031471768751, guid: 7f302d4c9b5c13446a067ab27dc0fb8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1059,7 +1064,7 @@ MonoBehaviour:
   page2Prefab: {fileID: 7819443191222660002, guid: 465fad0c58fedc34f8be8e5be6bf9bc3, type: 3}
   page1Probability: 0.6
   spawnPoint: {fileID: 1514580397}
-  maxPages: 10
+  maxPages: 6
 --- !u!4 &1304014516
 Transform:
   m_ObjectHideFlags: 0
@@ -1152,7 +1157,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 1365539031471768751, guid: 7f302d4c9b5c13446a067ab27dc0fb8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1507,7 +1512,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 1365539031471768751, guid: 7f302d4c9b5c13446a067ab27dc0fb8c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1826,6 +1831,8 @@ MonoBehaviour:
   - {fileID: 1636578554}
   - {fileID: 1234316864}
   flameObject: {fileID: 1677605251}
+  childPosToClear: {fileID: 530300065}
+  pageSpawner: {fileID: 1304014515}
 --- !u!4 &2069691768
 Transform:
   m_ObjectHideFlags: 0

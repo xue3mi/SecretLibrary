@@ -8,6 +8,10 @@ public class CandleManager : MonoBehaviour
     public List<CandleToggle> allCandles = new List<CandleToggle>();
     public GameObject flameObject;
 
+    [Header("Clear Page Prefabs")]
+    public Transform childPosToClear;
+    public PageSpawner pageSpawner;
+
     void Awake()
     {
         instance = this;
@@ -16,14 +20,13 @@ public class CandleManager : MonoBehaviour
             flameObject.SetActive(false);
     }
 
-
     public void RegisterCandle(CandleToggle candle)
     {
         if (!allCandles.Contains(candle))
             allCandles.Add(candle);
     }
 
-    //check if all candles are litted
+    // check if all candles are litted
     public void CheckAllCandles()
     {
         bool allOn = true;
@@ -37,6 +40,14 @@ public class CandleManager : MonoBehaviour
         }
 
         if (flameObject != null)
+        {
             flameObject.SetActive(allOn);
+
+            // if flame show, clear prefab at childPos
+            if (allOn && childPosToClear != null && pageSpawner != null)
+            {
+                pageSpawner.ClearByChild(childPosToClear, 0.1f); //offset
+            }
+        }
     }
 }

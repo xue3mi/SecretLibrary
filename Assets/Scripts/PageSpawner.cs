@@ -26,36 +26,30 @@ public class PageSpawner : MonoBehaviour
         if (currentPageCount >= maxPages) return;
 
         GameObject newPage = Instantiate(page1Prefab, spawnPoint.position, Quaternion.identity);
-
-        Page pageScript = newPage.GetComponent<Page>();
-        if (pageScript != null)
-            pageScript.spawner = this;
-
-        DragObject dragScript = newPage.GetComponent<DragObject>();
-        if (dragScript != null)
-            dragScript.spawner = this;
-
-        currentPageCount++;
+        SetupPage(newPage);
     }
 
     // random spawn
     public void SpawnPage()
     {
-        if (currentPageCount >= maxPages)
-            return; // reached maximum pages
+        if (currentPageCount >= maxPages) return;
 
         float rand = Random.value; // 0~1
         GameObject prefabToSpawn = (rand < page1Probability) ? page1Prefab : page2Prefab;
 
         GameObject newPage = Instantiate(prefabToSpawn, spawnPoint.position, Quaternion.identity);
+        SetupPage(newPage);
+    }
+
+    private void SetupPage(GameObject newPage)
+    {
+        if (newPage == null) return;
 
         Page pageScript = newPage.GetComponent<Page>();
-        if (pageScript != null)
-            pageScript.spawner = this;
+        if (pageScript != null) pageScript.spawner = this;
 
         DragObject dragScript = newPage.GetComponent<DragObject>();
-        if (dragScript != null)
-            dragScript.spawner = this;
+        if (dragScript != null) dragScript.spawner = this;
 
         currentPageCount++;
     }
@@ -64,5 +58,28 @@ public class PageSpawner : MonoBehaviour
     public void PageRemoved()
     {
         SpawnPage();
+    }
+
+    // clear prefab(s) at the location of a given child transform
+    public void ClearByChild(Transform childPos, float tolerance = 0.01f)
+    {
+        if (childPos == null) return;
+
+        GameObject[] allPages = GameObject.FindGameObjectsWithTag("Page");
+        int destroyed = 0;
+
+        foreach (GameObject page in allPages)
+        {
+            if (page != null && Vector3.Distance(page.transform.position, childPos.position) <= tolerance)
+            {
+                Destroy(page);
+                destroyed++;
+            }
+        }
+
+        currentPageCount -= destroyed;
+        if (currentPageCount < 0) currentPageCount = 0;
+
+        Debug.Log($"Cleared {destroyed} prefab(s) at {childPos.name} ({childPos.position})");
     }
 }
