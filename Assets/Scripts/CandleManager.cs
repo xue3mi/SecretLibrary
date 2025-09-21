@@ -7,6 +7,8 @@ public class CandleManager : MonoBehaviour
     public static CandleManager instance;
     public List<CandleToggle> allCandles = new List<CandleToggle>();
     public GameObject flameObject;
+    public ReturnBook returnObject;
+
 
     [Header("Clear Page Prefabs")]
     public Transform childPosToClear;
@@ -19,6 +21,8 @@ public class CandleManager : MonoBehaviour
         if (flameObject != null)
             flameObject.SetActive(false);
     }
+
+
 
     public void RegisterCandle(CandleToggle candle)
     {
@@ -43,11 +47,17 @@ public class CandleManager : MonoBehaviour
         {
             flameObject.SetActive(allOn);
 
-            // if flame show, clear prefab at childPos
+            if (returnObject != null)
+            {
+                returnObject.gameObject.SetActive(allOn);
+            }
+
+            // if flame show£¬clear prefab at the position
             if (allOn && childPosToClear != null && pageSpawner != null)
             {
-                pageSpawner.ClearByChild(childPosToClear, 0.1f); //offset
+                pageSpawner.ClearByChild(childPosToClear);
             }
         }
+
     }
 }

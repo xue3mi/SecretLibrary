@@ -62,6 +62,7 @@ public class DragObject : MonoBehaviour
     {
         if (isDragging && PenObject.isHoldingPen == 0)
         {
+            
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0;
             transform.position = mousePos + offset;

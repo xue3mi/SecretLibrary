@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PageSpawner : MonoBehaviour
 {
@@ -24,10 +25,16 @@ public class PageSpawner : MonoBehaviour
     private void SpawnFirstPage()
     {
         if (currentPageCount >= maxPages) return;
+        StartCoroutine(SpawnFirstPageCoroutine());
+    }
 
+    private IEnumerator SpawnFirstPageCoroutine()
+    {
+        yield return null; //
         GameObject newPage = Instantiate(page1Prefab, spawnPoint.position, Quaternion.identity);
         SetupPage(newPage);
     }
+
 
     // random spawn
     public void SpawnPage()
@@ -81,5 +88,10 @@ public class PageSpawner : MonoBehaviour
         if (currentPageCount < 0) currentPageCount = 0;
 
         Debug.Log($"Cleared {destroyed} prefab(s) at {childPos.name} ({childPos.position})");
+    }
+    public void ResetSpawner()
+    {
+        currentPageCount = 0;
+        SpawnFirstPage();
     }
 }
